@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 import os
 from decouple import config
 from dj_database_url import parse as dburl
-
+import dj_database_url
 
 
 
@@ -72,12 +72,12 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'SpaceOddity.wsgi.application'
 
-
-default_dburl = 'sqlite:///' + os.path.join(BASE_DIR, 'db.sqlite3')
-
-DATABASES = {
-    'default': config('DATABASE_URL', default=default_dburl, cast=dburl),
-}
+db_from_env = dj_database_url.config()
+DATABASES['default'].update(db_from_env)
+#default_dburl = 'sqlite:///' + os.path.join(BASE_DIR, 'db.sqlite3')
+#DATABASES = {
+#    'default': config('DATABASE_URL', default=default_dburl, cast=dburl),
+#}
 
 
 
