@@ -72,8 +72,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'SpaceOddity.wsgi.application'
 
-db_from_env = dj_database_url.config()
-DATABASES['default'].update(db_from_env)
+#db_from_env = dj_database_url.config()
+#DATABASES['default'].update(db_from_env)
+DATABASES = { 'default': dj_database_url.config() }
 #default_dburl = 'sqlite:///' + os.path.join(BASE_DIR, 'db.sqlite3')
 #DATABASES = {
 #    'default': config('DATABASE_URL', default=default_dburl, cast=dburl),
