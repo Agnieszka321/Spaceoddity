@@ -9,12 +9,22 @@ https://docs.djangoproject.com/en/1.11/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.11/ref/settings/
 """
+import dj_database_url
+import psycopg2
 import os
 from decouple import config
-from dj_database_url import parse as dburl
-import dj_database_url
+from urllib import parse
 
+#parse.uses_netloc.append("postgres")
+#url = parse.urlparse(os.environ["postgres://owgymehuavuize:d0beba1a616857bb320128c243c337a0e8c2388b6ec3e178645217283859b3dd@ec2-54-235-150-134.compute-1.amazonaws.com:5432/d952v8a6lq1r88"])
 
+#conn = psycopg2.connect(
+#    database=url.path[1:],
+#    user=url.username,
+#    password=url.password,
+#   host=url.hostname,
+#    port=url.port
+#)
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -74,7 +84,7 @@ WSGI_APPLICATION = 'SpaceOddity.wsgi.application'
 
 #db_from_env = dj_database_url.config()
 #DATABASES['default'].update(db_from_env)
-DATABASES = { 'default': dj_database_url.config() }
+#DATABASES = { 'default': dj_database_url.config() }
 #default_dburl = 'sqlite:///' + os.path.join(BASE_DIR, 'db.sqlite3')
 #DATABASES = {
 #    'default': config('DATABASE_URL', default=default_dburl, cast=dburl),
@@ -85,6 +95,18 @@ DATABASES = { 'default': dj_database_url.config() }
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'd952v8a6lq1r88',
+        'USER': 'owgymehuavuize',
+        'PASSWORD': 'd0beba1a616857bb320128c243c337a0e8c2388b6ec3e178645217283859b3dd',
+        'HOST': 'ec2-54-235-150-134.compute-1.amazonaws.com', # Or something like this
+        'PORT': '',
+    }
+}
+db_from_env = dj_database_url.config()
+DATABASES['default'].update(db_from_env)
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
